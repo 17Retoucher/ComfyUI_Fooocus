@@ -1,6 +1,7 @@
 import os
 import json
 from pathlib import Path
+from fooocus_modules.config import FOOOCUS_STYLES_DIR,RESOURCES_DIR
 
 
 
@@ -9,8 +10,9 @@ class stylesPromptSelector:
     @classmethod
     def INPUT_TYPES(s):
         styles = ["fooocus_styles"]
-        for file_name in os.listdir(os.path.join(__file__, "../../styles")):
-            file = os.path.join(__file__, "../../styles", file_name)
+        styles_dir = FOOOCUS_STYLES_DIR
+        for file_name in os.listdir(styles_dir):
+            file = os.path.join(styles_dir, file_name)
             if (
                 os.path.isfile(file)
                 and file_name.endswith(".json")
@@ -70,15 +72,9 @@ class stylesPromptSelector:
         all_styles = {}
         positive_prompt, negative_prompt = "", negative
         if styles == "fooocus_styles":
-            file = Path(
-                os.path.join(
-                    Path(__file__).parent.parent, "resources/" + styles + ".json"
-                )
-            )
+            file = os.path.join(RESOURCES_DIR,  styles + '.json')
         else:
-            file = Path(
-                os.path.join(Path(__file__).parent.parent, "styles/" + styles + ".json")
-            )
+            file = os.path.join(RESOURCES_DIR, styles + '.json')
         f = open(file, "r", encoding="utf-8")
         data = json.load(f)
         f.close()
