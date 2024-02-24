@@ -120,17 +120,7 @@ class FooocusLoader:
     CATEGORY = "Fooocus"
 
     @classmethod
-    def get_resolution_strings(cls):
-        return [f"{width} x {height}" for width, height in config.BASE_RESOLUTIONS]
 
-    def process_resolution(self, resolution: str) -> Tuple[int, int]:
-        if resolution == "自定义 x 自定义":
-            return None
-        try:
-            width, height = map(int, resolution.split(" x "))
-            return width, height
-        except ValueError:
-            raise ValueError("Invalid base_resolution format.")
 
     def fooocus_loader(self, optional_lora_stack=[], **kwargs):
         resolution = kwargs.pop("resolution")
